@@ -13,7 +13,6 @@
 #include "Site.h"
 #include "Agent.h"
 
-//since updated lists need:
 #include "Peasant.h"
 #include "Knight.h"
 #include "Thug.h"
@@ -27,36 +26,29 @@
 //services to access them.
 
 //In addition, the object is responsible for providing update services
-//to the View object !!!!!!!
+//to the View object
 
 class Model {
 
-    //std::vector< std::shared_ptr<Sim_obj> > Sim_obj_list; //whats this for??
-    std::vector< std::shared_ptr<Site> > Site_list;  //why not one for castles one for farms?
-    //std::vector< std::shared_ptr<Agent> > Agent_list; //why not Peasant / Knight / Thug seperately??
-
-    //std::vector< std::shared_ptr<Farm> > Farm_list;
-    //std::vector< std::shared_ptr<Castle> > Castle_list;
+    std::vector< std::shared_ptr<Site> > Site_list;  
 
     std::vector< std::shared_ptr<Peasant> > Peasant_list;
     std::vector< std::shared_ptr<Knight> > Knight_list;
     std::vector< std::shared_ptr<Thug> > Thug_list;
 
-    //std::vector< std::shared_ptr<View> > View_list; //only rlly have one in this case sooo:
     std::shared_ptr<View> View_ptr;
     int time=0;
 
-    Model(); //in private!
+    Model(); //in private for singleton
     static std::shared_ptr<Model> singleton_model;
 
 public:
     ~Model();
-    Model(const Model& other) = delete; //not clonable //do i need to do it for && as well?
+    Model(const Model& other) = delete; //not clonable
     Model(Model&& other) = delete;
     Model& operator=(const Model& other) = delete;
     Model& operator=(Model&& other) = delete;
-    //Model& is_initiated(); //no arguments? Model& or pointer? wtf is the diff?
-
+   
     static std::shared_ptr<Model> GetInstance();
 
     const std::shared_ptr<View>& return_View_ptr();
@@ -66,9 +58,7 @@ public:
     const std::vector< std::shared_ptr<Site> > & get_Site_list() const;
 
     void addCastle(std::shared_ptr<Castle>&& given_castle);
-    //void addCastle(std::string c_name, float x, float y, int inventory);
     void addFarm(std::shared_ptr<Farm>&& given_farm);
-    //void addFarm(std::string c_name, float x, float y, int inventory, int farmStrong);
 
     void update();
     void status() const;
@@ -77,10 +67,10 @@ public:
     void addThug(std::shared_ptr<Thug>&& new_thug);
 
 
-    std::shared_ptr<Site>& give_M_site_cref_by_name(const std::string& given_name); ///should this return a const?
-    std::shared_ptr<Thug> give_M_thug_cref_by_name(const std::string& given_name); ///should this return a const?
-    const std::shared_ptr<Peasant>& give_M_peasant_cref_by_name(const std::string& given_name); ///should this return a const?
-    const std::shared_ptr<Knight>& give_M_knight_cref_by_name(const std::string& given_name); ///should this return a const?
+    std::shared_ptr<Site>& give_M_site_cref_by_name(const std::string& given_name); 
+    std::shared_ptr<Thug> give_M_thug_cref_by_name(const std::string& given_name); 
+    const std::shared_ptr<Peasant>& give_M_peasant_cref_by_name(const std::string& given_name); 
+    const std::shared_ptr<Knight>& give_M_knight_cref_by_name(const std::string& given_name); 
 
     bool get_knight_on_course(const std::string& given_name, float ang);
     bool get_thug_on_course(const std::string& given_name, float ang, int speed);
@@ -93,20 +83,15 @@ public:
 
     void stop_agent(const std::string& given_name);
     void t_attack(const std::string& given_thug_name, const std::string& given_peasant_name);
-    std::string obj_in_square(Loc ref_loc, float scale) const; // should be based on pointer to View that Model holds??
+    std::string obj_in_square(Loc ref_loc, float scale) const; // based on pointer to View that Model holds
 
 
-    //return_this getters()const;
-    //setters(set_to_this);
-    //void attach();
-    //void detach();
 
 //    //controller commands to model:
 //    void status() const; //all obj in simulation describe current state
 //    void go(); //to update all obj in discrete time unit of one hr
-//          //below all const string & ???
-//    void create(std::string given_a_name, std::string type_Knight, std::string legal_site_name);// for
-//    //void create(std::string given_a_name, std::string type_T_or_P, std::string location_coord); //for
+//    void create(std::string given_a_name, std::string type_Knight, std::string legal_site_name);
+//    void create(std::string given_a_name, std::string type_T_or_P, std::string location_coord);
 
 };
 
