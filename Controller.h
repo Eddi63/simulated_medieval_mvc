@@ -19,8 +19,7 @@ public:
 	Controller();
 	~Controller();
 
-	// creates View object, runs the program by accepting user commands, then destroys View object
-	//void run();
+
     void run(int argc, char* argv[]);
     bool load_castles();
     bool load_farms();
@@ -33,9 +32,7 @@ public:
     float y_from_command(std::string y_input) const; //no comma
 
 
-
-
-        //commands to view:
+    //commands to view:
     void dfault(); // to replicate automatic parameters of map
     void size(unsigned int s); // 6<s<=30, s defines num of cols and rows
     void zoom(float z); // unsigned real number //relation of 1 km to cell in map
@@ -45,10 +42,9 @@ public:
     //commands to model:
     void status() const; //all obj in simulation describe current state
     void go(); //to update all obj in discrete time unit of one hr
-    //below all const string & ???
+
     void create(std::string given_a_name, std::string type_P_or_T, float coord_x, float coord_y); // to create new agent
     void create(std::string given_a_name, std::string type_Knight, std::string legal_site_name);// for
-    //void create(std::string given_a_name, std::string type_Thug, std::string location_coord)
 
     //commands after agent name:
     void course(float angle_degree, int speed_if_thug);
