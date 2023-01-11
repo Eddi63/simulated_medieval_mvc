@@ -6,7 +6,7 @@
 
 std::shared_ptr<Model> Model::singleton_model = nullptr;
 
-Model::Model() { ///should it not receive a pointer to a View????????????
+Model::Model() { 
     std::cout << "singleton model private ctor entered"<< std::endl;
     View_ptr = std::make_shared<View>();
 }
@@ -18,8 +18,7 @@ Model::~Model() {
 std::shared_ptr<Model> Model::GetInstance()
 {
     if(singleton_model==nullptr){
-        //.reset(std::make_shared<Model>()); //(new Model()); // =  new Model(); //std::make_shared<Model>(); //
-        singleton_model.reset(new Model());// std::make_shared<Model>()); // std::make_shared<std::shared_ptr<Model>>(new Model()); //std::make_shared<Model>();
+        singleton_model.reset(new Model());
     }
     return singleton_model;
 }
@@ -36,7 +35,7 @@ const std::vector<std::shared_ptr<Site> > &Model::get_Site_list() const {
     return Site_list;
 }
 void Model::addCastle(std::shared_ptr<Castle>&& given_castle) {
-    if(time != 0){ //should not get here
+    if(time != 0){ 
         std::cerr << "cannot add site in middle of game" << std::endl ;
         return;
     }
@@ -45,7 +44,7 @@ void Model::addCastle(std::shared_ptr<Castle>&& given_castle) {
 
 
 void Model::addFarm(std::shared_ptr<Farm>&& given_farm) {
-    if(time != 0){ //should not get here
+    if(time != 0){
         std::cerr << "cannot add site in middle of game" << std::endl ;
         return;
     }
@@ -228,14 +227,14 @@ bool Model::is_an_agent_name(const std::string& given_name) const {
     if(is_a_thug_name(given_name)){
         //std::cout << "is a thugname" << std::endl;
         return true;
-    } /////////////////////is this reachable????
+    }
     return false;
 }
 
 void Model::stop_agent(const std::string& given_name){
     for (const std::shared_ptr<Knight>& M_knight : Knight_list) {
         if( M_knight->name_is(given_name) ) {
-            M_knight->stop_agent(); //can i do this given const shared_ptr<> &? i think so cuz the Knight isnt const!
+            M_knight->stop_agent(); 
             return;
         }
     }
