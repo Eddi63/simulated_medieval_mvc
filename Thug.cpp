@@ -36,13 +36,13 @@ void Thug::position(const Loc &given_loc, int given_speed) {
     speed = given_speed;
 }
 
-bool Thug::Peasant_in_reach( const std::shared_ptr<Peasant>& p ){ //const Peasant& p) {     //
+bool Thug::Peasant_in_reach( const std::shared_ptr<Peasant>& p ){ 
     return Agent::agent_in_radius_in_km(p, 1); //agent function already divides by 10
 }
 
 
 bool Thug::Knight_in_vicinity(const std::shared_ptr<Peasant>& p) {
-    std::vector< std::shared_ptr<Knight> > k_l = Model::GetInstance()->get_knight_list(); //technically returns const std::vector<std::shared_ptr<Knight>>&
+    std::vector< std::shared_ptr<Knight> > k_l = Model::GetInstance()->get_knight_list(); 
     for (const std::shared_ptr<Knight>& M_knight : k_l) {
         if (p->agent_in_radius_in_km(M_knight, 2.5)){
 
@@ -52,13 +52,12 @@ bool Thug::Knight_in_vicinity(const std::shared_ptr<Peasant>& p) {
     return false;
 }
 
-void Thug::attack(std::shared_ptr<Peasant> p) { //should parameter be std::string??
+void Thug::attack(std::shared_ptr<Peasant> p) { 
     if (getState() == DEAD){
         std::cerr << "thug can NOT attack when dead" <<std::endl;
         return;
     }
-    //below done even if peasant not in reach??
-    p->decrease_p_health(); //check automatically if dead???
+    p->decrease_p_health();
     if (Peasant_in_reach(p) && !Knight_in_vicinity(p) && get_t_health() > p->get_p_health()){
         p->stop_agent();
 
@@ -97,13 +96,13 @@ void Thug::increase_t_health() {
 }
 
 void Thug::decrease_t_health() {
-    if(t_health.get_health() == 0){ //do i need this?? will i get here if dead??
-        std::cout << "thug already dead" <<std::endl; //do i need this?
+    if(t_health.get_health() == 0){
+        std::cout << "thug already dead" <<std::endl; 
         return;
     }
-    t_health.health_down();//health cant be negative? maybe just check if dead first?
+    t_health.health_down();
     if (t_health.get_health() == 0) {
-        //set_state(DEAD); //if already dead then im resetting it to dead...
+        //set_state(DEAD); 
         stop_agent();
         set_state(DEAD);
     }
@@ -139,21 +138,17 @@ void Thug::update(){
     switch(k_current_state){
         case STOPPED:
             return;
-            //break;
 
         case MOVINGTO:
-            //if (loc_is_dest()){} //assuming we dont get here
             move_agent(speed);
             if(loc_is_dest()){ //after move
                 stop_agent();
             }
             return;
-            //break;
 
         case MOVINGONCOURSE:
             move_agent(speed); //no destination so no check
             return;
-            //break;
 
         default:
             break;
