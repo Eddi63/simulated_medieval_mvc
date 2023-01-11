@@ -72,7 +72,7 @@ Controller::~Controller() {
 }
 
 // creates View object, runs the program by accepting user commands, then destroys View object
-void Controller::run(int argc, char* argv[]) { //char** argv
+void Controller::run(int argc, char* argv[]) { 
     if(!load_castles()){
         std::cerr << "problem loading castles" << std::endl;
         return;
@@ -392,11 +392,6 @@ bool Controller::load_castles(){
         Model::GetInstance()->addCastle(std::move(my_new_castle));
 
     }
-//    while (!f1.eof()) { // keep reading until end-of-file
-//        //check if line is in the correct format and add the port accordingly
-//
-//    }
-    //close file
     f1.close();
     return true;
 }
@@ -411,7 +406,6 @@ bool Controller::load_farms() {
     std::string farmName, x_etc, y_etc, inven_str, farm_strength_str;
     float x, y;
     int inventory_, farm_str;
-    //double x, y;
     for (std::string line; getline(f2, line);) {
         std::vector<std::string> str_vec_of_line = mystrtok(line, ' ');
         if (str_vec_of_line.size() != 5) {
@@ -492,7 +486,6 @@ float Controller::y_from_stream(std::string y_input) const{
     else{
         throw std::invalid_argument("input not in proper y float format");
     }
-    //return num_float;
 }
 
 float Controller::y_from_command(std::string y_input) const{ //no comma
@@ -505,7 +498,6 @@ float Controller::y_from_command(std::string y_input) const{ //no comma
     else{
         throw std::invalid_argument("input not in proper y float format");
     }
-    //return num_float;
 }
 
 bool Controller::is_int(std::string string_potential) const{
@@ -523,10 +515,7 @@ bool Controller::isFloat( std::string myString ) const{
     float f;
     iss >> f;
     // Check the entire string was consumed and if either failbit or badbit is set
-
-    //bool ans = iss.eof() && !iss.fail();
-    //iss.clear();
-    return iss.eof() && !iss.fail(); //ans;
+    return iss.eof() && !iss.fail();
 }
 
 //commands to view:
@@ -579,10 +568,10 @@ void Controller::create(std::string given_a_name, std::string type_P_or_T, float
         try {
             //Peasant p(p_name, p_loc);
             p = std::make_shared<Peasant>(std::move(given_a_name),
-                                          Loc(coord_x, coord_y)); //could i create a loc in here and move it?
+                                          Loc(coord_x, coord_y)); 
             Model::GetInstance()->addPeasant(std::move(p));
             return;
-        } catch (const std::exception &e) { //why const, why & ?
+        } catch (const std::exception &e) { 
             std::cerr << e.what() << std::endl;
             return;
         } catch (...) {
@@ -593,12 +582,11 @@ void Controller::create(std::string given_a_name, std::string type_P_or_T, float
     else if( type_P_or_T.compare("Thug") == 0 ){
         std::shared_ptr<Thug> t;
         try {
-            //Peasant p(p_name, p_loc);
             t = std::make_shared<Thug>(std::move(given_a_name),
-                                          Loc(coord_x, coord_y)); //could i create a loc in here and move it?
+                                          Loc(coord_x, coord_y)); 
             Model::GetInstance()->addThug(std::move(t));
             return;
-        } catch (const std::exception &e) { //why const, why & ?
+        } catch (const std::exception &e) { 
             std::cerr << e.what() << std::endl;
             return;
         } catch (...) {
@@ -628,7 +616,7 @@ void Controller::create(std::string given_a_name, std::string type_Knight, std::
             k = std::make_shared<Knight>(std::move(given_a_name), Model::GetInstance()->give_M_site_cref_by_name(given_site_name) );
             Model::GetInstance()->addKnight(std::move(k));
             return;
-        } catch (const std::exception &e) { //why const, why & ?
+        } catch (const std::exception &e) { 
             std::cerr << e.what() << std::endl;
             return;
         } catch (...) {
