@@ -1,1 +1,3 @@
 Create a simulated medieval world with an MVC paradigm
+Time-dependent simulation of the medieval period, designed using the Model-View-Controlle paradigm.
+Object-oriented solution in C++ using design patterns.
