@@ -1,12 +1,5 @@
 #include <iostream>
-#include <iomanip> //for operator<< for setprecision
-
-#include "Agent.h"
-#include "Peasant.h"
-#include "Knight.h"
-#include "Thug.h"
 #include "Loc.h"
-
 #include "Controller.h"
 
 std::ostream& operator << (std::ostream& output, const Loc& rhs_loc) {
